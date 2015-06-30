@@ -18,12 +18,13 @@ class Producer(threading.Thread):
     def run(self):
         try:
             self.request.data = self.client.recv(self.request.bufSize)
-            data = json.dumps(['foo', {'bar': ('baz', None, 1.0, 2)}])
-            self.client.send(data.encode)
+            self.client.send('receive'.encode());
+            # data = json.dumps(['foo', {'bar': ('baz', None, 1.0, 2)}])
+            # self.client.send(data.encode)
             print('new thread : ' + self.name);
             print(self.request.data.decode())
         except Exception as e:
             print(e)
         finally:
-            print(self.name + 'connect close')
+            print(self.name + ' connect close')
             self.client.close()
